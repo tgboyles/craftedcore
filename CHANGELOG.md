@@ -1,3 +1,7 @@
+craftedcore 5.8.1
+================
+- update to MixinExtras 0.5.1
+
 craftedcore 5.8
 ================
 - fix errors when running data generation
