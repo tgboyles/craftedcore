@@ -1,3 +1,7 @@
+craftedcore 5.8.2
+================
+- remove data files for versions before 1.20.1
+
 craftedcore 5.8.1
 ================
 - update to MixinExtras 0.5.1
