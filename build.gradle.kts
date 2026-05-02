@@ -15,6 +15,12 @@ subprojects {
         configure<PublishingExtension> {
             publications {
                 create<MavenPublication>("mavenJava") {
+                    artifactId = when (project.name) {
+                        "common" -> "craftedcore"
+                        "fabric" -> "craftedcore-fabric"
+                        "neoforge" -> "craftedcore-neoforge"
+                        else -> project.name
+                    }
                     from(components["java"])
                 }
             }
