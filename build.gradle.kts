@@ -1,15 +1,35 @@
 plugins {
-    id("dev.tocraft.modmaster.root") version ("single-1.9")
+    id("net.fabricmc.fabric-loom") version "1.15.5" apply false
+    id("net.neoforged.moddev") version "2.0.141" apply false
 }
 
-val clothConfigVersion: String? = properties["cloth_config_version"] as String
+allprojects {
+    group = property("maven_group") as String
+    version = property("mod_version") as String
+}
 
-ext {
-    val modMeta = mutableMapOf<String, Any>()
-    modMeta["minecraft"] = project.properties["minecraft"] as String
-    modMeta["version"] = version
-    if (clothConfigVersion != null) {
-        modMeta["clothConfig"] = clothConfigVersion
+subprojects {
+    apply(plugin = "maven-publish")
+
+    afterEvaluate {
+        configure<PublishingExtension> {
+            publications {
+                create<MavenPublication>("mavenJava") {
+                    from(components["java"])
+                }
+            }
+        }
     }
-    set("mod_meta", modMeta)
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven("https://maven.fabricmc.net/")
+        maven("https://maven.neoforged.net/releases/")
+        maven("https://maven.terraformersmc.com/releases/")
+        maven("https://maven.shedaniel.me/")
+        maven {
+            name = "Minecraft Libraries"
+            url = uri("https://libraries.minecraft.net")
+        }
+    }
 }
