@@ -20,6 +20,22 @@ val commonResources: Configuration by configurations.creating { isCanBeResolved 
 
 neoForge {
     version = property("neoforge") as String
+
+    runs {
+        mods {
+            create("craftedcore") { // Replace with your actual mod ID
+                sourceSet(sourceSets.main.get())
+            }
+        }
+        create("client") {
+            client()
+        }
+
+        create("server") {
+            server()
+            programArgument("--nogui")
+        }
+    }
 }
 
 dependencies {
