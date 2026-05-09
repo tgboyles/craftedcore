@@ -4,8 +4,6 @@ plugins {
     id("dev.tocraft.modmaster.neoforge")
 }
 
-val clothConfigVersion: String? = parent!!.properties["cloth_config_version"] as String?
-
 dependencies {
     compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:${property("mixinextras_version")}")!!)
     implementation(jarJar("io.github.llamalad7:mixinextras-neoforge:${property("mixinextras_version")}")!!)
