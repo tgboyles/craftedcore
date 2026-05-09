@@ -1,22 +1,6 @@
 plugins {
-    id("net.fabricmc.fabric-loom")
-    `java-library`
+    id("dev.tocraft.modmaster.fabric")
 }
-
-base {
-    archivesName = "${property("archives_base_name")}-fabric"
-}
-
-val javaVersion = (property("java") as String).toInt()
-
-java {
-    toolchain.languageVersion = JavaLanguageVersion.of(javaVersion)
-    withSourcesJar()
-}
-
-// Resolve common sources from :common subproject
-val commonJava: Configuration by configurations.creating { isCanBeResolved = true }
-val commonResources: Configuration by configurations.creating { isCanBeResolved = true }
 
 dependencies {
     minecraft("com.mojang:minecraft:${property("minecraft")}")
@@ -45,12 +29,8 @@ dependencies {
     }
 }
 
-// Include common sources in this compilation
-tasks.compileJava { source(commonJava) }
-tasks.javadoc { source(commonJava) }
-
 tasks.processResources {
-    from(commonResources)
+    from("commonResources")
     val mcVersion = project.property("minecraft")
     val clothVersion = project.property("cloth_config_version")
     filesMatching("fabric.mod.json") {
@@ -61,9 +41,4 @@ tasks.processResources {
         ))
     }
     outputs.upToDateWhen { false }
-}
-
-tasks.named<Jar>("sourcesJar") {
-    from(commonJava)
-    from(commonResources)
 }

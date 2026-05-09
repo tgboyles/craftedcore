@@ -1,38 +1,12 @@
 plugins {
-    id("net.fabricmc.fabric-loom") version "1.15.5" apply false
-    id("net.neoforged.moddev") version "2.0.141" apply false
-}
-
-allprojects {
-    group = property("maven_group") as String
-    version = property("mod_version") as String
+    id("dev.tocraft.modmaster.root") version ("2.0")
 }
 
 subprojects {
-    apply(plugin = "maven-publish")
-
-    afterEvaluate {
-        configure<PublishingExtension> {
-            publications {
-                create<MavenPublication>("mavenJava") {
-                    artifactId = when (project.name) {
-                        "common" -> "craftedcore"
-                        "fabric" -> "craftedcore-fabric"
-                        "neoforge" -> "craftedcore-neoforge"
-                        else -> project.name
-                    }
-                    from(components["java"])
-                }
-            }
-        }
-    }
     repositories {
-        mavenLocal()
-        mavenCentral()
-        maven("https://maven.fabricmc.net/")
-        maven("https://maven.neoforged.net/releases/")
-        maven("https://maven.terraformersmc.com/releases/")
-        maven("https://maven.shedaniel.me/")
+        maven("https://maven.fabricmc.net/") // fabric api
+        maven("https://maven.terraformersmc.com/releases/") // mod menu mod
+        maven("https://maven.shedaniel.me/") // cloth config
         maven {
             name = "Minecraft Libraries"
             url = uri("https://libraries.minecraft.net")

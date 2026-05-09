@@ -53,7 +53,7 @@ public class TestMod {
             }
         });
 
-        if (PlatformData.getEnv() == EnvType.CLIENT) {
+        if (PlatformData.getEnv() == PlatformData.Env.CLIENT) {
             TestModClient.initialize();
         }
     }

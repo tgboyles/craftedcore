@@ -54,6 +54,10 @@ public final class PlatformData {
     }
 
     public enum Env {
-        CLIENT, SERVER
+        CLIENT, SERVER;
+
+        public boolean isClient() {
+            return this == CLIENT;
+        }
     }
 }
