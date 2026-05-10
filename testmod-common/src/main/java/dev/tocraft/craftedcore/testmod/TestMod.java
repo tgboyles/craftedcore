@@ -41,14 +41,14 @@ public class TestMod {
         EntityEvents.LIVING_BREATHE.register((entity, canBreathe) -> {
             if (entity instanceof Player) {
                 if (canBreathe) {
-                    LOGGER.debug("In and out.");
+                    LOGGER.info("In and out.");
                 } else {
-                    LOGGER.debug("I need air!");
+                    LOGGER.info("I need air!");
                 }
                 // revert value, the players will need to breathe underwater now
                 return !canBreathe;
             } else {
-                LOGGER.debug("something is breathing here...");
+                LOGGER.info("something is breathing here...");
                 return canBreathe;
             }
         });
