@@ -90,7 +90,9 @@ public class CraftedCoreNeoForgeEventHandler {
         event.setCanBreathe(EntityEvents.LIVING_BREATHE.invoke().breathe(event.getEntity(), event.canBreathe()));
     }
 
+    @SubscribeEvent
     private void destroySpeed(PlayerEvent.@NotNull BreakSpeed event) {
-        PlayerEvents.DESTROY_SPEED.invoke().setDestroySpeed(event.getEntity(), event.getNewSpeed());
+        float speed = PlayerEvents.DESTROY_SPEED.invoke().setDestroySpeed(event.getEntity(), event.getNewSpeed());
+        event.setNewSpeed(speed);
     }
 }
