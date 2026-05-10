@@ -26,15 +26,15 @@ public class TestMod {
     public static void initialize() {
         PlayerEvents.PLAYER_JOIN.register(player -> LOGGER.debug("player {} joined.", player != null ? player.getName().getString() : ""));
         PlayerEvents.PLAYER_QUIT.register(player -> LOGGER.debug("player {} quit.", player != null ? player.getName().getString() : ""));
-        PlayerEvents.AWARD_ADVANCEMENT.register((player, advancement, criterionKey) -> LOGGER.debug("{} unlocked advancement {}", player != null ? player.getDisplayName() : "", criterionKey));
-        PlayerEvents.REVOKE_ADVANCEMENT.register((player, advancement, criterionKey) -> LOGGER.debug("{} revoked advancement {}", player != null ? player.getDisplayName() : "", criterionKey));
+        PlayerEvents.AWARD_ADVANCEMENT.register((player, advancement, criterionKey) -> LOGGER.debug("{} unlocked advancement {}", player != null ? player.getName().getString() : "", criterionKey));
+        PlayerEvents.REVOKE_ADVANCEMENT.register((player, advancement, criterionKey) -> LOGGER.debug("{} revoked advancement {}", player != null ? player.getName().getString() : "", criterionKey));
         EntityEvents.INTERACT_WITH_PLAYER.register((player, entity, hand) -> {
-            LOGGER.debug("player {}just interacted with {}", player != null ? player.getName().getString() : "", entity.getName().getString());
+            LOGGER.debug("player {} just interacted with {}", player != null ? player.getName().getString() : "", entity.getName().getString());
             return InteractionResult.PASS;
         });
 
         EntityEvents.LIVING_DEATH.register((entity, source) -> {
-            LOGGER.debug("{}Oh, I just died in your arms tonight.", entity != null ? entity.getName().getString() : "");
+            LOGGER.debug("{} Oh, I just died in your arms tonight.", entity != null ? entity.getName().getString() : "");
             return InteractionResult.PASS;
         });
 
@@ -51,6 +51,12 @@ public class TestMod {
                 LOGGER.debug("something is breathing here...");
                 return canBreathe;
             }
+        });
+
+        PlayerEvents.DESTROY_SPEED.register((player, oSpeed) -> {
+            float speed = oSpeed * 5;
+            LOGGER.debug("{} is mining with {} speed.", player.getName().getString(), speed);
+            return speed;
         });
 
         if (PlatformData.getEnv() == PlatformData.Env.CLIENT) {
